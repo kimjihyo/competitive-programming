@@ -1,44 +1,46 @@
 #include <cmath>
 #include <iostream>
 using namespace std;
-
-int r, c;
+int n, r, c;
 long long ans = 0;
 
-void func(int n, int i, int offsetY, int offsetX) {
-  if (n == 1) {
-    // cout << offsetY << ' ' << offsetX << ' ' << ans << '\n';
-    // cout << offsetY << ' ' << offsetX + 1 << ' ' << ans + 1 << '\n';
-    // cout << offsetY + 1 << ' ' << offsetX << ' ' << ans + 2 << '\n';
-    // cout << offsetY + 1 << ' ' << offsetX + 1 << ' ' << ans + 3 << '\n';
-
-    if (r == offsetY && c == offsetX) {
+void func(int a, int b, int c) {
+  if (a == 1) {
+    if (b == 0 && c == 0) {
       cout << ans << '\n';
-    }
-    if (r == offsetY && c == offsetX + 1) {
+    } else if (b == 0 && c == 1) {
       cout << ans + 1 << '\n';
-    }
-    if (r == offsetY + 1 && c == offsetX) {
+    } else if (b == 1 && c == 0) {
       cout << ans + 2 << '\n';
-    }
-    if (r == offsetY + 1 && c == offsetX + 1) {
+    } else {
       cout << ans + 3 << '\n';
     }
-    ans += 4;
     return;
   }
-
-  func(n - 1, i + pow(2, n) * 0, offsetY, offsetX);
-  func(n - 1, i + pow(2, n) * 1, offsetY, offsetX + pow(2, n - 1));
-  func(n - 1, i + pow(2, n) * 2, offsetY + pow(2, n - 1), offsetX);
-  func(n - 1, i + pow(2, n) * 3, offsetY + pow(2, n - 1),
-       offsetX + pow(2, n - 1));
+  int size = pow(2, a);
+  // 1
+  if (b < size / 2 && c < size / 2) {
+    func(a - 1, b, c);
+  }
+  // 2
+  if (b < size / 2 && c >= size / 2) {
+    ans += pow(4, a - 1);
+    func(a - 1, b, c - pow(2, a - 1));
+  }
+  // 3
+  if (b >= size / 2 && c < size / 2) {
+    ans += pow(4, a - 1) * 2;
+    func(a - 1, b - pow(2, a - 1), c);
+  }
+  // 4
+  if (b >= size / 2 && c >= size / 2) {
+    ans += pow(4, a - 1) * 3;
+    func(a - 1, b - pow(2, a - 1), c - pow(2, a - 1));
+  }
 }
 
 int main() {
-  int n;
   cin >> n >> r >> c;
-  func(n, 0, 0, 0);
-
+  func(n, r, c);
   return 0;
 }
