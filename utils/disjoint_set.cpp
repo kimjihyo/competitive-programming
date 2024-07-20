@@ -1,8 +1,9 @@
 #include <vector>
+using namespace std;
 
 struct DisjointSet {
-  std::vector<int> parents;
-  std::vector<int> ranks;
+  vector<int> parents;
+  vector<int> ranks;
 
   DisjointSet(int maxSize) {
     parents.resize(maxSize);
@@ -13,18 +14,18 @@ struct DisjointSet {
     }
   }
 
-  int find_set(int v) {
+  int findSet(int v) {
     if (v == parents[v])
       return v;
-    return parents[v] = find_set(parents[v]);
+    return parents[v] = findSet(parents[v]);
   }
 
-  void union_set(int a, int b) {
-    a = find_set(a);
-    b = find_set(b);
+  void unionSet(int a, int b) {
+    a = findSet(a);
+    b = findSet(b);
     if (a != b) {
       if (ranks[a] < ranks[b])
-        std::swap(a, b);
+        swap(a, b);
       parents[b] = a;
       ranks[a] += ranks[b];
     }
