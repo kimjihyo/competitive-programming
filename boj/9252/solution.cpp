@@ -18,12 +18,6 @@ int main() {
       memo[i][j] = max(max(left, top), diag);
     }
   }
-  // for (int i = 1; i < str1.size() + 1; i++) {
-  //   for (int j = 1; j < str2.size() + 1; j++) {
-  //     cout << memo[i][j] << ' ';
-  //   }
-  //   cout << '\n';
-  // }
 
   int i = str1.size(), j = str2.size();
   string lcs = "";
