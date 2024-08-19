@@ -1,47 +1,62 @@
 #include <iostream>
 #include <string>
-#include <unordered_set>
 using namespace std;
+
+struct set {
+  int store = 0;
+  void add(int x) {
+    int bit = 1 << x;
+    store = store | bit;
+  }
+
+  void remove(int x) {
+    int bit = 1 << x;
+    bit = ~bit;
+    store = store & bit;
+  }
+
+  bool check(int x) {
+    int bit = 1 << x;
+    return (store & bit) > 0;
+  }
+
+  void toggle(int x) {
+    int bit = 1 << x;
+    store = store ^ bit;
+  }
+
+  void all() { store = (1 << 21) - 1; }
+
+  void empty() { store = 0; }
+};
+
 int main() {
   ios::sync_with_stdio(0);
   cin.tie(0);
-
   int n;
-  unordered_set<int> s;
   cin >> n;
-
+  set s;
   for (int i = 0; i < n; i++) {
     string command;
-    int value;
+    int num;
     cin >> command;
     if (command == "add") {
-      cin >> value;
-      s.insert(value);
+      cin >> num;
+      s.add(num);
     } else if (command == "remove") {
-      cin >> value;
-      s.erase(s.find(value));
+      cin >> num;
+      s.remove(num);
     } else if (command == "check") {
-      cin >> value;
-      if (s.find(value) == s.end()) {
-        cout << 0 << '\n';
-      } else {
-        cout << 1 << '\n';
-      }
-    } else if (command == "toggle") {
-      cin >> value;
-      auto itr = s.find(value);
-      if (itr == s.end()) {
-        s.insert(value);
-      } else {
-        s.erase(itr);
-      }
+      cin >> num;
+      bool result = s.check(num);
+      cout << result << '\n';
     } else if (command == "all") {
-      s.clear();
-      for (int j = 1; j < 21; j++) {
-        s.insert(j);
-      }
+      s.all();
     } else if (command == "empty") {
-      s.clear();
+      s.empty();
+    } else if (command == "toggle") {
+      cin >> num;
+      s.toggle(num);
     }
   }
   return 0;
