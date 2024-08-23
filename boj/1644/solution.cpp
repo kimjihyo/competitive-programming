@@ -26,19 +26,10 @@ int main() {
   for (int i = 0; i < primes.size(); i++) {
     sums[i + 1] = primes[i] + sums[i];
   }
-  // for (auto p : primes) {
-  //   cout << p << ' ';
-  // }
-  // cout << '\n';
-  // for (auto s : sums) {
-  //   cout << s << ' ';
-  // }
-  // cout << '\n';
   int ans = 0;
   int left = 0, right = 1;
   while (left < right && right < sums.size()) {
     int sum = sums[right] - sums[left];
-    // cout << right << ' ' << left << ' ' << sum << '\n';
     if (sum == n) {
       ans++;
       right++;
@@ -50,20 +41,5 @@ int main() {
   }
   cout << ans << '\n';
 
-  // cout << '\n';
-  // int ans = 0;
-  // for (int i = sums.size() - 1; i > 0; i--) {
-  //   if (sums[i] == n) {
-  //     ans++;
-  //   } else {
-  //     for (int j = i - 1; j > -1; j--) {
-  //       if (sums[i] - sums[j] == n) {
-  //         ans++;
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
-  // cout << ans << '\n';
   return 0;
 }
