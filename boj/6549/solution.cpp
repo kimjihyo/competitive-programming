@@ -2,8 +2,6 @@
 #include <iostream>
 using namespace std;
 
-// int arr[11];
-// int tree[33];
 int n;
 int arr[100'001];
 int tree[300'003];
@@ -87,8 +85,6 @@ int main() {
     init(1, n, 1);
     long long ans = getMaxArea(1, n);
     cout << ans << '\n';
-    // int ans = get(1, n, 1, 1, 4);
-    // cout << ans << '\n';
   }
   return 0;
 }
