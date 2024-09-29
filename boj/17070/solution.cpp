@@ -13,7 +13,6 @@ const int DIAGNOAL = 2;
 
 int n;
 int world[16][16];
-bool visited[16][16][3]{};
 list<m> moves[4];
 
 int search() {
