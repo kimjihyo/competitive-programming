@@ -1,39 +1,54 @@
+#include <algorithm>
 #include <iostream>
 #include <stack>
 #include <string>
 using namespace std;
 int main() {
+  ios::sync_with_stdio(0);
+  cin.tie(0);
   string str;
   string estr;
 
-  stack<int> idx;
+  deque<int> idx;
+  stack<char> res;
 
   cin >> str >> estr;
 
-  string res = "";
   for (auto c : str) {
-    if (c == estr[0]) {
-      idx.push(0);
-    } else if (!idx.empty() && c == estr[idx.top() + 1]) {
+    if (!idx.empty() && c == estr[idx.back() + 1]) {
       if (c == estr[estr.size() - 1]) {
         for (int i = 0; i < estr.size() - 1; i++) {
-          idx.pop();
+          idx.pop_back();
         }
       } else {
-        idx.push(idx.top() + 1);
+        idx.push_back(idx.back() + 1);
+      }
+    } else if (c == estr[0]) {
+      if (estr.size() != 1) {
+        idx.push_back(0);
       }
     } else {
-      string temp;
       while (!idx.empty()) {
-        temp = estr[idx.top()] + temp;
-        idx.pop();
+        res.push(estr[idx.front()]);
+        idx.pop_front();
       }
-      res += temp + c;
+      res.push(c);
     }
   }
-  if (res.size() == 0) {
-    res = "FRULA";
+  while (!idx.empty()) {
+    res.push(estr[idx.front()]);
+    idx.pop_front();
   }
-  cout << res << '\n';
+  if (res.size() == 0) {
+    cout << "FRULA\n";
+  } else {
+    string resstr = "";
+    while (!res.empty()) {
+      resstr.push_back(res.top());
+      res.pop();
+    }
+    reverse(resstr.begin(), resstr.end());
+    cout << resstr << '\n';
+  }
   return 0;
 }
