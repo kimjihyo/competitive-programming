@@ -15,49 +15,37 @@ int main() {
     if (str[i] == expected) {
       size++;
       expected = expected == 'I' ? 'O' : 'I';
-    } else {
+    } else if (size > 0) {
+      int tmp = size;
       if (str[i] == 'I') {
-        auto it = memo.find(size);
-        if (it == memo.end()) {
-          memo.insert({size, 1});
-        } else {
-          it->second++;
-        }
         size = 1;
         expected = 'O';
       } else {
-        size--;
-        auto it = memo.find(size);
-        if (it == memo.end()) {
-          memo.insert({size, 1});
-        } else {
-          it->second++;
-        }
+        tmp--;
         size = 0;
+        expected = 'I';
+      }
+      auto it = memo.find(tmp);
+      if (it == memo.end()) {
+        memo.insert({tmp, 1});
+      } else {
+        it->second++;
       }
     }
   }
-  if (size != 0) {
-    if (str[str.size() - 1] == 'I') {
-      auto it = memo.find(size);
-      if (it == memo.end()) {
-        memo.insert({size, 1});
-      } else {
-        it->second++;
-      }
-    } else {
+  if (size > 2) {
+    if (str[str.size() - 1] == 'O') {
       size--;
-      auto it = memo.find(size);
-      if (it == memo.end()) {
-        memo.insert({size, 1});
-      } else {
-        it->second++;
-      }
+    }
+    auto it = memo.find(size);
+    if (it == memo.end()) {
+      memo.insert({size, 1});
+    } else {
+      it->second++;
     }
   }
   int ans = 0;
   for (auto it : memo) {
-    // cout << it.first << ' ' << it.second << '\n';
     if (it.first >= n * 2 + 1) {
       ans += ((it.first - 1) / 2 - n + 1) * it.second;
     }
