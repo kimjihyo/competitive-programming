@@ -19,5 +19,5 @@ int main() {
       sum_credit += credit;
     }
   }
-  cout << sum / sum_credit << '\n';
+  cout << sum / sum_credit;
 }
