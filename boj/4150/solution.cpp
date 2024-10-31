@@ -31,18 +31,27 @@ string add(string &a, string &b) {
 int main() {
   int n;
   cin >> n;
-  vector<string> arr(n + 1);
+  string a = "0";
+  string b = "1";
+  string c;
 
-  arr[0] = "0";
-  arr[1] = "1";
-
-  for (int i = 2; i < n + 1; i++) {
-    arr[i] = add(arr[i - 1], arr[i - 2]);
+  if (n == 0) {
+    cout << 0 << '\n';
+    return 0;
+  }
+  if (n == 1) {
+    cout << 1 << '\n';
+    return 0;
   }
 
-  string ans = arr[n];
-  reverse(ans.begin(), ans.end());
-  cout << ans << '\n';
+  for (int i = 2; i < n + 1; i++) {
+    c = add(a, b);
+    a = b;
+    b = c;
+  }
+
+  reverse(c.begin(), c.end());
+  cout << c << '\n';
 
   return 0;
 }
