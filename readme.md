@@ -1,2 +1,3 @@
-# competitive-programming
-The repository where I solve a coding interview problem everyday and upload the solution.
+# Daily Coding Challenge
+
+I solve one coding problem everyday and share the solution here.
